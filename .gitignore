@@ -1,0 +1,9 @@
+*.pyc
+*.env
+/temp/
+temp/
+**.ipynb
+/.ipynb_checkpoints
+.ipynb_checkpoints
+.idea
+/.idea

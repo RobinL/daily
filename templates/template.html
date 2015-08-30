@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block table_fullsnapshot %}
+	<table class="table table-striped table-bordered table-condensed">
+	<tr>
+		{% for key in order %}
+
+		<th>{{key}}</th>
+
+		{% endfor %}
+	</tr>
+	  {% for dict in table_array_fullsnapshot %}
+	    <tr>
+	    {% for key in order%}
+	        <td>{{dict[key]}}</td>
+	    {% endfor %}
+	    </tr>
+	{% endfor %}
+	</table>
+{% endblock %}
+
+
+{% block table_differences %}
+	<table class="table table-striped table-bordered table-condensed">
+	<tr>
+		{% for key in order %}
+
+		<th>{{key}}</th>
+
+		{% endfor %}
+	</tr>
+	  {% for dict in table_array_differences %}
+	    <tr>
+	    {% for key in order%}
+	        <td>{{dict[key]}}</td>
+	    {% endfor %}
+	    </tr>
+	{% endfor %}
+	</table>
+{% endblock %}
+
+
+
+
