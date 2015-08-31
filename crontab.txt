@@ -1,0 +1,23 @@
+This is the working crontab:
+
+44 * * * * cd /home/azureuser/daily && /home/azureuser/anaconda/bin/python main.py
+
+Note that the crontab works in a different environment to the user, so the environmental variables (such as where python is located) will be different
+
+We need to ensure it's working with the right version of python and we need to ensure that it runs from the right directory
+
+We can send output from the crontab like this:
+* * * * * cd /home/azureuser/test_python && python test.py >> /home/azureuser/cronlog.log 2>&1
+
+
+Here are some more useful notes:
+1. Set email address for cron 
+2. Change pwd in python 
+3. Double check whether the pandas import works,  and then change cron for full anaconda path.  Do these tests with test. Py  rather than fhrs scraper. Py
+
+4. Can you get python to print the python interpreter path
+
+5. I think the critical thing is that python from the cron user is different to python for me as the user.   So it works on the shell but not on the cron because the python path is different
+
+See http://stackoverflow.com/questions/7970905/cannot-import-python-mysql-module-when-running-a-script-using-crontab
+Also http://serverfault.com/questions/85893/running-a-cron-job-manually-and-immediately
