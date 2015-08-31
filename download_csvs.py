@@ -7,14 +7,15 @@ import os
 import shutil
 import logging
 import gc
+from my_website import upload_log
 
 logger = logging.getLogger(__name__)
 
 
 def download_csvs(csv_file_directory):
 
-    shutil.rmtree(csv_file_directory)
-    os.makedirs(csv_file_directory)
+    # shutil.rmtree(csv_file_directory)
+    # os.makedirs(csv_file_directory)
 
     files = os.listdir(csv_file_directory)
     files = [f for f in files if ".csv" in f]
@@ -35,7 +36,7 @@ def download_csvs(csv_file_directory):
         sys.exit()
        
     data = r.text  #Get html from above url - this is a list of all the xml links
-    soup = BeautifulSoup(data,"html5lib")  #parse into dictionary-like structure to extract data
+    soup = BeautifulSoup(data)  #parse into dictionary-like structure to extract data
 
 
     #Get a list of all of the hyperlinks of the page that are in English and contain FHRS data.  Note re.compile is basically doing a search/filter on the links 
@@ -54,7 +55,7 @@ def download_csvs(csv_file_directory):
 
     #a now contains a list of all the hyperlinks of xml we want to visit and download
     # links = [link for link in links if "702" in link]
-    links_to_do = set(links)
+    links_to_do = set(links[:52])
 
 
     #this is a list of fields that we want in our final table of data
@@ -105,8 +106,9 @@ def download_csvs(csv_file_directory):
 
 
     while len(links_to_do)>0:
-        if counter_for_done % 50 ==0:
+        if counter_for_done % 10 ==0:
             logger.debug("completed " + str(counter_for_done) + " xml downloads")
+            upload_log()
 
         
         if counter_for_error > all_links_len/3:

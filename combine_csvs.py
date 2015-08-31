@@ -7,6 +7,14 @@ import datetime
 
 def combine_csvs(csvs_directory,output_directory):
     
+    
+    files = os.listdir(output_directory)
+    files = [f for f in files if ".csv" in f]
+    files = [os.path.join(output_directory,f) for f in files if "__" in f]
+    
+    for f in files:
+        os.remove(f)
+
     #Get list of files to join
 
     file_list = os.listdir(csvs_directory)
