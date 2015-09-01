@@ -34,7 +34,8 @@ def download_csvs(csv_file_directory):
     except Exception as e:
         logger.error(e.message[1])
         sys.exit()
-       
+    
+    
     data = r.text  #Get html from above url - this is a list of all the xml links
     soup = BeautifulSoup(data)  #parse into dictionary-like structure to extract data
 
@@ -54,8 +55,8 @@ def download_csvs(csv_file_directory):
         sys.exit()
 
     #a now contains a list of all the hyperlinks of xml we want to visit and download
-    # links = [link for link in links if "702" in link]
-    links_to_do = set(links[:52])
+    #links = [link for link in links if "324" in link]
+    links_to_do = set(links)
 
 
     #this is a list of fields that we want in our final table of data
@@ -82,7 +83,9 @@ def download_csvs(csv_file_directory):
     "AddressLine3",
     "PostCode",
     "AddressLine4",
-    "RightToReply"
+    "RightToReply",
+    "NewRatingPending"
+
     ]
 
     #convert to lowercase
@@ -135,7 +138,14 @@ def download_csvs(csv_file_directory):
         
         #parse data
         try:
-            soup = BeautifulSoup(r.text)
+            unicode_text = r.text.encode("latin1").decode("utf-8")
+        except:
+            logger.debug("Can't convert text reponse from latin1 to unicode on link: " + this_link)
+            continue
+
+        try:
+
+            soup = BeautifulSoup(unicode_text)
             del r
         except:
             #If this goes wrong put link back into pile

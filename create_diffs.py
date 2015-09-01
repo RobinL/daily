@@ -9,9 +9,10 @@ logger = logging.getLogger(__name__)
 
 def create_difference(new_csv_path):
 
-    print "new_csv_path {}".format(new_csv_path)
+    logger.debug("new_csv_path {}".format(new_csv_path))
     filename = os.path.basename(new_csv_path)
-    print "filename {}".format(filename)
+
+    logger.debug("filename {}".format(filename))
 
     date = parser.parse(filename[:8]).date()
 

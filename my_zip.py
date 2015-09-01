@@ -8,8 +8,8 @@ import datetime
 def create_zip_from_file(input_path, output_path):
     file_name = os.path.basename(input_path)
     output_path = os.path.join(output_path, file_name)
-    time_formatted = datetime.datetime.now().strftime('%H_%M_%S')
-    output_path = output_path.replace(".csv", time_formatted + ".zip")
+    
+    output_path = output_path.replace(".csv", ".zip")
     compression = zipfile.ZIP_DEFLATED
 
     modes = { zipfile.ZIP_DEFLATED: 'deflated',
